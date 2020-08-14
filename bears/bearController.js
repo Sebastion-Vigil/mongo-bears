@@ -1,45 +1,42 @@
-const router = require('express').Router();
+const router = require('express').Router()
 
-const Bear = require('./bearModel');
+const Bear = require('./bearModel')
 
 router
   .route('/')
   .get(get)
-  .post(post);
+  .post(post)
 
 router
   .route('/:id')
   .get((req, res) => {
-    res.status(200).json({ route: '/api/bears/' + req.params.id });
+  res.status(200).json({ route: '/api/bears/' + req.params.id })
+})
+
+
+
+function get (req, res) {
+  console.log('get all the bears!')
+  Bear.find().then(bears => {
+    res.status(200).json(bears)
   })
-      .delete((req, res) => {
-        res.status(200).json({ status: 'please implement DELETE functionality' });
-      })
-      .put((req, res) => {
-        res.status(200).json({ status: 'please implement PUT functionality' });
-      });
+}
 
-    function get(req, res) {
-      Bear.find().then(bears => {
-        res.status(200).json(bears);
-      })
-    }
+function post (req, res) {
+  const bearData = req.body
 
-    function post(req, res) {
-      const bearData = req.body;
+  const bear = new Bear(bearData)
+  bear
+    .save()
+    .then(bear => {
+      res.status(201).json(bear)
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
+}
 
-      const bear = new Bear(bearData);
-      bear
-        .save()
-        .then(bear => {
-          res.status(201).json(bear);
-        })
-        .catch(err => {
-          res.status(500).json(err);
-        })
-    }
-
-    module.exports = router;
+module.exports = router
 
 // const router = require('express').Router(); // declare that all routes for this address will be found on this router
 
