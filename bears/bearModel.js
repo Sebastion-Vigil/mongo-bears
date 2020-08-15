@@ -3,58 +3,25 @@ const mongoose = require('mongoose');
 const definition = {
     species: {
         type: String,
-        required: true,
-        unique: true
+        // required: true,
     },
     latinName: {
         type: String,
-        required: true,
+        // required: true,
     },
     createdOn: {
         type: Date,
         default: Date.now,
-    }
-};
+    } 
+}
 
 const options = {
-    timestamps: true
-};
+    timestamps: true,  
+}
 
 const bearSchema = new mongoose.Schema(definition, options);
 
-// could've just done mongoose.model('Bear', bearSchema)
 const bearModel = mongoose.model('Bear', bearSchema, 'bears');
-
+//third argument, by default is 'Bear' + lowercase + plural
+// or module.exports=(mongoose.model('Bear', bearSchema))
 module.exports = bearModel;
-
-// // create a model for our bears.
-// const mongoose = require('mongoose');
-// // Schema
-
-// // {
-// //   species: 'Grizzly Bear',
-// //   latinName: 'Urusas Americanas',
-// //   createOn: Date.now();
-// // }
-
-// const BearSchema = new mongoose.Schema({
-//   // declare a schema. Your documents will 'look like this'
-//   species: {
-//     type: String, // There are many types in Mongoose that we'll learn about this week
-//     required: true, // required is a validator. It tells us that this field is required
-//     unique: true // unique is also a validator. It tells us this field can only exist once
-//   },
-//   latinName: {
-//     type: String,
-//     require: true
-//   },
-//   createOn: {
-//     type: Date, // Date is another type in Mongoose.
-//     default: Date.now()
-//   }
-// });
-
-// const bearsModel = mongoose.model('Bear', BearSchema); // this is where we declare this as a model.
-// // by passing our BearSchema to this model we decalre that it will be a collection in our DB
-
-// module.exports = bearsModel;
