@@ -35,7 +35,7 @@ router
 
 router
   .route('/:id') // pass id number after slash, i.e., api/bears/5f3671dbceb55d2c2554b40c (Grizzly Bear)
-  .get((req, res) => { 
+  .get((req, res) => { // so now the ? is can I pass id as part of req.body...
     const bearId = req.params.id;
     Bear.findById(bearId)
       .then(bear => {
@@ -66,8 +66,8 @@ router
   .put((req, res) => {
     const { id } = req.params;
     const bearData = req.body;
-    const options = {
-      new: true
+    const options = { // okay so what up with the options?
+      new: true // smells like middleware
     }
     Bear.findByIdAndUpdate(id, bearData, options)
       .then(bear => {
